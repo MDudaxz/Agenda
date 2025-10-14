@@ -41,7 +41,7 @@ def editarContato(request, id):
         telefone = request.POST.get('telefone')
         email = request.POST.get('email')
         descricao = request.POST.get('descricao')
-        imagem = request.FILE.get('imagem')
+        imagem = request.FILES.get('imagem')
 
         contato.nome = nome
         contato.sobrenoome = sobrenome
@@ -56,5 +56,4 @@ def editarContato(request, id):
        'contato': contato
    }
     return render(request, 'core/editarContato.html', context)
-
 
