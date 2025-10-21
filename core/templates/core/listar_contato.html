@@ -16,11 +16,20 @@
     <p class="lead mb-1"><strong>Telefone:</strong> {{ cont.telefone }}</p>
     <small>{{ cont.descricao_curta }}</small>
 
+      <p class="lead mb-1"><strong>email:</strong> {{ cont.email }}</p>
+       <small>{{ cont.email }}</small>
+
+      <p class="lead mb-1"><strong>descricao:</strong> {{ cont.descricao }}</p>
+       <small>{{ cont.descricao }}</small>
+
+
    <div class="d-flex mt-4">
   <a href="{% url 'editarContato' cont.id %}" class="btn btn-info" style="margin-right: 2mm;">Alterar</a>
-  <a href="#" class="btn btn-danger">Excluir</a>
+  <a href="{% url 'excluirContato' cont.id %}" class="btn btn-danger">Excluir</a>
 </div>
   </div>
+
+
 
     {{cont.id}}
 
