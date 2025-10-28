@@ -3,6 +3,11 @@ from django.contrib import messages
 
 from core.models import Contato
 
+from django.core.paginator import Paginator
+from django.db.models.functions import Concat
+from django.db.models import Q, Value
+
+
 def add_contato(request):
     if request.method != 'POST':
        return render(request, 'core/add_contato.html')
@@ -61,3 +66,32 @@ def excluirContato(request, id):
     contato = Contato.objects.get(id=id)
     contato.delete()
     return redirect('listar_contato')
+
+def buscarContato(request):
+        termo = request.GET.get('termo')
+
+        if not termo:
+            messages.error(request, 'Campo não pode ser vazio!')
+            return redirect('listar_contato')
+
+        campos = Concat('nome', Value(' '), 'sobrenome')
+
+        contatos = (
+            Contato.objects
+            .annotate(nome_contato=campos)
+            .filter(Q(nome_contato__icontains=termo))
+        )
+
+        paginator = Paginator(contatos, 6)
+        page = request.GET.get('p')
+        contatos = paginator.get_page(page)
+
+        if not contatos:
+            messages.warning(request, 'Nenhum resultado encontrado.')
+
+        context = {
+            'contatos': contatos,
+            'termo': termo,
+        }
+
+        return render(request, 'core/buscarContato.html', context)

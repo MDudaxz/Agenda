@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Login – Agenda</title>
+
+    <style>
+        /* Reset básico */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body, html {
+            height: 100%;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+            background: #000;
+        }
+
+        /* Canvas do universo */
+        #universe {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+
+        /* Container de login centralizado */
+        .login-container {
+            width: 100%;
+            max-width: 400px;
+            margin: auto;
+            padding: 40px 20px;
+            background: rgba(0,0,0,0.7);
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+            position: relative;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 2;
+            backdrop-filter: blur(6px);
+            color: #fff;
+        }
+
+        .login-container h2 {
+            text-align: center;
+            margin-bottom: 24px;
+            color: #f0f8ff;
+            text-shadow: 1px 1px 6px rgba(0,0,0,0.5);
+        }
+
+        .login-container label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        .login-container input[type="text"],
+        .login-container input[type="password"] {
+            width: 100%;
+            padding: 12px 15px;
+            margin-bottom: 18px;
+            border: 2px solid #555;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s;
+            background: rgba(255,255,255,0.1);
+            color: #fff;
+        }
+
+        .login-container input::placeholder {
+            color: rgba(255,255,255,0.7);
+        }
+
+        .login-container input:focus {
+            outline: none;
+            border-color: #00ffff;
+            box-shadow: 0 0 10px rgba(0,255,255,0.5);
+            background: rgba(255,255,255,0.15);
+        }
+
+        .login-container button {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(90deg, #00f0ff, #6600ff);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.3);
+        }
+
+        .login-container button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(0,255,255,0.5);
+        }
+
+        .login-container .footer {
+            text-align: center;
+            margin-top: 16px;
+            font-size: 14px;
+        }
+
+        .login-container .footer a {
+            color: #00f0ff;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .login-container .footer a:hover {
+            color: #6600ff;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<canvas id="universe"></canvas>
+
+<div class="login-container">
+    <h2>Bem-vindo à Agenda</h2>
+    <form method="post" action="/login">
+        <label for="username">Usuário</label>
+        <input type="text" id="username" name="username" placeholder="Digite seu usuário" required>
+
+        <label for="password">Senha</label>
+        <input type="password" id="password" name="password" placeholder="Digite sua senha" required>
+
+        <button type="submit">Entrar</button>
+    </form>
+
+    <div class="footer">
+        <p>Não tem uma conta? <a href="/register">Registre-se aqui</a></p>
+        <p><a href="/forgot-password">Esqueceu a senha?</a></p>
+    </div>
+</div>
+
+<script>
+    const canvas = document.getElementById('universe');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const stars = [];
+    const planets = [];
+
+    // Criar estrelas
+    for (let i = 0; i < 150; i++) {
+        stars.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            radius: Math.random() * 2,
+            speed: Math.random() * 0.5 + 0.2
+        });
+    }
+
+    // Criar planetas
+    for (let i = 0; i < 5; i++) {
+        planets.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height / 2,
+            radius: Math.random() * 40 + 20,
+            color: `hsl(${Math.random()*360}, 70%, 50%)`,
+            angle: Math.random() * Math.PI * 2,
+            speed: (Math.random() * 0.01 + 0.005)
+        });
+    }
+
+    function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // desenhar estrelas
+        stars.forEach(star => {
+            ctx.beginPath();
+            ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+            ctx.fillStyle = 'white';
+            ctx.fill();
+            star.y -= star.speed;
+            if(star.y < 0) star.y = canvas.height;
+        });
+
+        // desenhar planetas
+        planets.forEach(p => {
+            p.angle += p.speed;
+            const orbitRadius = 100 + p.radius * 2;
+            const centerX = canvas.width/2;
+            const centerY = canvas.height/2;
+            const x = centerX + orbitRadius * Math.cos(p.angle);
+            const y = centerY + orbitRadius * Math.sin(p.angle);
+            ctx.beginPath();
+            ctx.arc(x, y, p.radius, 0, Math.PI*2);
+            ctx.fillStyle = p.color;
+            ctx.fill();
+        });
+
+        requestAnimationFrame(animate);
+    }
+
+    animate();
+
+    // Ajustar canvas ao redimensionar
+    window.addEventListener('resize', () => {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    });
+</script>
+
+</body>
+</html>
