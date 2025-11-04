@@ -1,123 +1,123 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Login – Agenda</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Login – Agenda</title>
 
-    <style>
-        /* Reset básico */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body, html {
-            height: 100%;
-            font-family: Arial, sans-serif;
-            overflow: hidden;
-            background: #000;
-        }
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    body, html {
+        height: 100%;
+        font-family: Arial, sans-serif;
+        overflow: hidden;
+        background: radial-gradient(ellipse at bottom, #1a0033 0%, #000 100%);
+    }
 
-        /* Canvas do universo */
-        #universe {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-        }
+    /* Canvas das estrelas e planetas */
+    #universe {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 0;
+    }
 
-        /* Container de login centralizado */
-        .login-container {
-            width: 100%;
-            max-width: 400px;
-            margin: auto;
-            padding: 40px 20px;
-            background: rgba(0,0,0,0.7);
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
-            position: relative;
-            top: 50%;
-            transform: translateY(-50%);
-            z-index: 2;
-            backdrop-filter: blur(6px);
-            color: #fff;
-        }
+    /* Container de login (agenda) mais transparente */
+    .login-container {
+        width: 100%;
+        max-width: 400px;
+        margin: auto;
+        padding: 40px 20px;
+        background: rgba(0, 0, 0, 0.35); /* Mais transparente */
+        border-radius: 14px;
+        box-shadow: 0 0 30px rgba(140, 0, 255, 0.3);
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 2;
+        backdrop-filter: blur(14px) brightness(1.2); /* efeito vidro e mais brilho */
+        color: #fff;
+        border: 1px solid rgba(255, 255, 255, 0.15);
+    }
 
-        .login-container h2 {
-            text-align: center;
-            margin-bottom: 24px;
-            color: #f0f8ff;
-            text-shadow: 1px 1px 6px rgba(0,0,0,0.5);
-        }
+    .login-container h2 {
+        text-align: center;
+        margin-bottom: 24px;
+        color: #dcdcff;
+        text-shadow: 0 0 12px rgba(176, 66, 255, 0.7);
+    }
 
-        .login-container label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: bold;
-        }
+    .login-container label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: bold;
+    }
 
-        .login-container input[type="text"],
-        .login-container input[type="password"] {
-            width: 100%;
-            padding: 12px 15px;
-            margin-bottom: 18px;
-            border: 2px solid #555;
-            border-radius: 8px;
-            font-size: 16px;
-            transition: all 0.3s;
-            background: rgba(255,255,255,0.1);
-            color: #fff;
-        }
+    .login-container input[type="text"],
+    .login-container input[type="password"] {
+        width: 100%;
+        padding: 12px 15px;
+        margin-bottom: 18px;
+        border: 2px solid rgba(255, 255, 255, 0.2);
+        border-radius: 8px;
+        font-size: 16px;
+        transition: all 0.3s;
+        background: rgba(255,255,255,0.08);
+        color: #fff;
+    }
 
-        .login-container input::placeholder {
-            color: rgba(255,255,255,0.7);
-        }
+    .login-container input::placeholder {
+        color: rgba(255,255,255,0.7);
+    }
 
-        .login-container input:focus {
-            outline: none;
-            border-color: #00ffff;
-            box-shadow: 0 0 10px rgba(0,255,255,0.5);
-            background: rgba(255,255,255,0.15);
-        }
+    .login-container input:focus {
+        outline: none;
+        border-color: #b066ff;
+        box-shadow: 0 0 12px rgba(176,66,255,0.6);
+        background: rgba(255,255,255,0.15);
+    }
 
-        .login-container button {
-            width: 100%;
-            padding: 12px;
-            background: linear-gradient(90deg, #00f0ff, #6600ff);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: all 0.3s;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.3);
-        }
+    .login-container button {
+        width: 100%;
+        padding: 12px;
+        background: linear-gradient(90deg, #7a00ff, #00c3ff);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: all 0.3s;
+        box-shadow: 0 3px 15px rgba(0,0,0,0.4);
+    }
 
-        .login-container button:hover {
-            transform: scale(1.05);
-            box-shadow: 0 5px 20px rgba(0,255,255,0.5);
-        }
+    .login-container button:hover {
+        transform: scale(1.05);
+        box-shadow: 0 0 20px rgba(176,66,255,0.6);
+    }
 
-        .login-container .footer {
-            text-align: center;
-            margin-top: 16px;
-            font-size: 14px;
-        }
+    .login-container .footer {
+        text-align: center;
+        margin-top: 16px;
+        font-size: 14px;
+    }
 
-        .login-container .footer a {
-            color: #00f0ff;
-            text-decoration: none;
-            transition: color 0.3s;
-        }
+    .login-container .footer a {
+        color: #a066ff;
+        text-decoration: none;
+        transition: color 0.3s;
+    }
 
-        .login-container .footer a:hover {
-            color: #6600ff;
-            text-decoration: underline;
-        }
-    </style>
+    .login-container .footer a:hover {
+        color: #00c3ff;
+        text-decoration: underline;
+    }
+</style>
 </head>
 <body>
 
@@ -125,9 +125,14 @@
 
 <div class="login-container">
     <h2>Bem-vindo à Agenda</h2>
-    <form method="post" action="/login">
+
+    {% if not user.is_authenticated %}
+
+    <form class="login-form" method="post" action="{% url 'login' %}">
+        {% csrf_token %}
+
         <label for="username">Usuário</label>
-        <input type="text" id="username" name="username" placeholder="Digite seu usuário" required>
+        <input type="text" class="form-control" id="username" name="username" placeholder="Digite seu usuário" required>
 
         <label for="password">Senha</label>
         <input type="password" id="password" name="password" placeholder="Digite sua senha" required>
@@ -141,74 +146,125 @@
     </div>
 </div>
 
+{%endif%}
+
 <script>
-    const canvas = document.getElementById('universe');
-    const ctx = canvas.getContext('2d');
+const canvas = document.getElementById('universe');
+const ctx = canvas.getContext('2d');
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let stars = [];
+let planets = [];
+let nebulas = [];
+
+// Muitas estrelas coloridas
+for (let i = 0; i < 900; i++) {
+    const colors = ['#ffffff', '#ffe9c4', '#d4fbff', '#ffd1dc', '#c8a2ff', '#aaffff', '#ffcc88', '#ff99ff'];
+    stars.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        radius: Math.random() * 1.4,
+        speed: Math.random() * 0.2 + 0.05,
+        alpha: Math.random(),
+        color: colors[Math.floor(Math.random() * colors.length)],
+        flicker: Math.random() * 0.02
+    });
+}
+
+// Planetas reais
+const planetData = [
+    { name: "Mercúrio", color: "#b1a193", orbit: 120, radius: 8 },
+    { name: "Vênus", color: "#d8c18b", orbit: 180, radius: 12 },
+    { name: "Terra", color: "#2e70ff", orbit: 250, radius: 14 },
+    { name: "Marte", color: "#d14b33", orbit: 320, radius: 10 },
+    { name: "Júpiter", color: "#e0b577", orbit: 400, radius: 25 },
+    { name: "Saturno", color: "#d9c58b", orbit: 500, radius: 22 },
+    { name: "Urano", color: "#82d9e3", orbit: 600, radius: 18 },
+    { name: "Netuno", color: "#4666ff", orbit: 700, radius: 18 },
+];
+
+// Movimento orbital
+planetData.forEach(p => {
+    planets.push({
+        ...p,
+        angle: Math.random() * Math.PI * 2,
+        speed: (Math.random() * 0.003 + 0.0015)
+    });
+});
+
+// Nebulosas
+for (let i = 0; i < 3; i++) {
+    nebulas.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        radius: 300 + Math.random() * 400,
+        color: `hsla(${260 + Math.random()*40}, 70%, 60%, 0.08)`
+    });
+}
+
+function drawNebulas() {
+    nebulas.forEach(n => {
+        const grad = ctx.createRadialGradient(n.x, n.y, n.radius * 0.1, n.x, n.y, n.radius);
+        grad.addColorStop(0, n.color);
+        grad.addColorStop(1, "transparent");
+        ctx.fillStyle = grad;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+    });
+}
+
+function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    drawNebulas();
+
+    // estrelas piscando
+    stars.forEach(star => {
+        star.alpha += star.flicker * (Math.random() > 0.5 ? 1 : -1);
+        star.alpha = Math.min(Math.max(star.alpha, 0.3), 1);
+        ctx.beginPath();
+        ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+        ctx.fillStyle = star.color;
+        ctx.globalAlpha = star.alpha;
+        ctx.fill();
+        ctx.globalAlpha = 1;
+        star.y += star.speed;
+        if (star.y > canvas.height) star.y = 0;
+    });
+
+    // planetas orbitando
+    const centerX = canvas.width / 2;
+    const centerY = canvas.height / 2;
+    planets.forEach(p => {
+        p.angle += p.speed;
+        const x = centerX + p.orbit * Math.cos(p.angle);
+        const y = centerY + p.orbit * Math.sin(p.angle * 1.1);
+        ctx.beginPath();
+        ctx.arc(x, y, p.radius, 0, Math.PI * 2);
+        ctx.fillStyle = p.color;
+        ctx.shadowBlur = 20;
+        ctx.shadowColor = p.color;
+        ctx.fill();
+        ctx.shadowBlur = 0;
+
+        // Saturno com anel
+        if (p.name === "Saturno") {
+            ctx.beginPath();
+            ctx.ellipse(x, y, p.radius * 2, p.radius * 1.2, 0, 0, Math.PI * 2);
+            ctx.strokeStyle = "rgba(210,190,120,0.5)";
+            ctx.lineWidth = 2;
+            ctx.stroke();
+        }
+    });
+
+    requestAnimationFrame(animate);
+}
+
+animate();
+
+window.addEventListener('resize', () => {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
-
-    const stars = [];
-    const planets = [];
-
-    // Criar estrelas
-    for (let i = 0; i < 150; i++) {
-        stars.push({
-            x: Math.random() * canvas.width,
-            y: Math.random() * canvas.height,
-            radius: Math.random() * 2,
-            speed: Math.random() * 0.5 + 0.2
-        });
-    }
-
-    // Criar planetas
-    for (let i = 0; i < 5; i++) {
-        planets.push({
-            x: Math.random() * canvas.width,
-            y: Math.random() * canvas.height / 2,
-            radius: Math.random() * 40 + 20,
-            color: `hsl(${Math.random()*360}, 70%, 50%)`,
-            angle: Math.random() * Math.PI * 2,
-            speed: (Math.random() * 0.01 + 0.005)
-        });
-    }
-
-    function animate() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-        // desenhar estrelas
-        stars.forEach(star => {
-            ctx.beginPath();
-            ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
-            ctx.fillStyle = 'white';
-            ctx.fill();
-            star.y -= star.speed;
-            if(star.y < 0) star.y = canvas.height;
-        });
-
-        // desenhar planetas
-        planets.forEach(p => {
-            p.angle += p.speed;
-            const orbitRadius = 100 + p.radius * 2;
-            const centerX = canvas.width/2;
-            const centerY = canvas.height/2;
-            const x = centerX + orbitRadius * Math.cos(p.angle);
-            const y = centerY + orbitRadius * Math.sin(p.angle);
-            ctx.beginPath();
-            ctx.arc(x, y, p.radius, 0, Math.PI*2);
-            ctx.fillStyle = p.color;
-            ctx.fill();
-        });
-
-        requestAnimationFrame(animate);
-    }
-
-    animate();
-
-    // Ajustar canvas ao redimensionar
-    window.addEventListener('resize', () => {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-    });
+});
 </script>
 
 </body>
