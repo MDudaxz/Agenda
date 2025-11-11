@@ -126,9 +126,7 @@
 <div class="login-container">
     <h2>Bem-vindo à Agenda</h2>
 
-    {% if not user.is_authenticated %}
-
-    <form class="login-form" method="post" action="{% url 'login' %}">
+    <form class="login-form" method="post" action="{% url 'submit_login' %}">
         {% csrf_token %}
 
         <label for="username">Usuário</label>
@@ -145,8 +143,6 @@
         <p><a href="/forgot-password">Esqueceu a senha?</a></p>
     </div>
 </div>
-
-{%endif%}
 
 <script>
 const canvas = document.getElementById('universe');
